@@ -16,6 +16,7 @@ namespace StateMachineEngine
         protected StateModule LastVertex { get; set; }
         public async Task<object> Run(IVertex<StateModule> startVertex)
         {
+            if (startVertex == null) throw new ArgumentNullException(nameof(startVertex));
             Current = startVertex as IVertex<StateModule>;
             CurrentState = Current.Value;
             object stateResult = null;

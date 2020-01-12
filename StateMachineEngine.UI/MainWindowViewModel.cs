@@ -12,10 +12,11 @@ namespace StateMachineEngine.UI
 {
     public class MainWindowViewModel : Prism.Mvvm.BindableBase
     {
-        StateMachineEngine _stateMachine = new StateMachineEngine();
+        readonly StateMachineEngine _stateMachine = new StateMachineEngine();
         public MainWindowViewModel()
         {
             PropertyChanged += Window1ViewModel_PropertyChanged;
+            Graph = new Graph();
         }
 
         private void Window1ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -41,11 +42,11 @@ namespace StateMachineEngine.UI
         {
             if (param != null)
             {
-                //StateModuleWindow moduleFunctionWindow = new StateModuleWindow();
-                //var moduleFunctionWindowViewModel = new StateModuleWindowViewModel();
-                //moduleFunctionWindowViewModel.Vertex = param;
-                //moduleFunctionWindow.DataContext = moduleFunctionWindowViewModel;
-                //moduleFunctionWindow.ShowDialog();
+                StateModuleWindow moduleFunctionWindow = new StateModuleWindow();
+                var moduleFunctionWindowViewModel = new StateModuleWindowViewModel();
+                moduleFunctionWindowViewModel.Vertex = param;
+                moduleFunctionWindow.DataContext = moduleFunctionWindowViewModel;
+                moduleFunctionWindow.ShowDialog();
             }
         }
 

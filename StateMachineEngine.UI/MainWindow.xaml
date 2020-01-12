@@ -4,11 +4,60 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StateMachineEngine.UI"
-
+        xmlns:ui="clr-namespace:DataStructures.UI;assembly=Abstract.DataStructures.UI"
+        xmlns:interactivity="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.DataContext>
         <local:MainWindowViewModel />
     </Window.DataContext>
-    
+    <DockPanel x:Name="dockPanel">
+        <ui:GraphControl x:Name="_GraphVisualization" 
+                             Graph="{Binding Graph,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+            <interactivity:Interaction.Triggers>
+                    <interactivity:EventTrigger EventName="MouseDoubleClick">
+                        <interactivity:InvokeCommandAction 
+                            Command="{x:Static ui:GraphControl.AddVertexRoutedCommand}"
+                            CommandParameter="{Binding Path=.}" />
+                    </interactivity:EventTrigger>
+                </interactivity:Interaction.Triggers>
+
+            <ui:GraphControl.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="_Save" Command="Save" />
+                    <MenuItem Header="_Load" Command="Open" />
+                    <MenuItem Header="_Print" Command="Print" />
+                    <MenuItem Header="_Kruskal" Command="{x:Static ui:GraphControl.KruskalRoutedCommand}" />
+                    <MenuItem Header="_Clear" Command="{x:Static ui:GraphControl.ClearGraphCommand}" />
+                    <MenuItem Header="_Direct" Command="{x:Static ui:GraphControl.SetDirectedRoutedCommand}" />
+                </ContextMenu>
+            </ui:GraphControl.ContextMenu>
+            <ui:GraphControl.Resources>
+                <ContextMenu x:Key="ContextMenu">
+                    <MenuItem Header="Edit" 
+                                  Command="{Binding Path=DataContext.ClickCommand,Source={x:Reference dockPanel},UpdateSourceTrigger=Default}"
+                                  CommandParameter="{Binding Path=SelectedItem.Vertex,Source={x:Reference _GraphVisualization},UpdateSourceTrigger=PropertyChanged}"/>
+                    <MenuItem Header="Run" 
+                                  Command="{Binding Path=DataContext.RunStateMachineCommand,Source={x:Reference dockPanel},UpdateSourceTrigger=Default}"
+                                  CommandParameter="{Binding Path=SelectedItem.Vertex,Source={x:Reference _GraphVisualization},UpdateSourceTrigger=PropertyChanged}"/>
+                </ContextMenu>
+                <Style TargetType="{x:Type ui:VertexControl}">
+                    <Setter Property="Width" Value="50" />
+                    <Setter Property="Height" Value="50" />
+                    <!--<Setter Property="Background" Value="#fff299" />-->
+                    <Setter Property="CommandOnDoubleClick" Value="{Binding Path=DataContext.ClickCommand,Source={x:Reference dockPanel},UpdateSourceTrigger=Default}" />
+                    <Setter Property="ContextMenu" Value="{StaticResource ContextMenu}" />
+
+                </Style>
+
+                <Style TargetType="{x:Type ui:EdgeControl}">
+                    <Style.Triggers>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="StrokeThickness" Value="2" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ui:GraphControl.Resources>
+        </ui:GraphControl>
+    </DockPanel>
 </Window>

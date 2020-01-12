@@ -5,8 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StateMachineEngine.UI"
         mc:Ignorable="d"
-        Title="StateModuleWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="ModuleFunctionWindow" Height="450" Width="800">
+    <DockPanel LastChildFill="True" >
+        <Button Content="Select assembly" VerticalAlignment="Top" Height="30" Command="{Binding PickAssemblyCommand}"></Button>
+        <StackPanel Orientation="Vertical">
+            <TextBlock Text="Description" />
+            <TextBox Text="{Binding Path=ModuleFunction.Description,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
+        <StackPanel Orientation="Vertical">
+            <TextBlock Text="Filter Methodname" />
+            <TextBox Text="{Binding Path=FilterMethodName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
+        <ListBox MinHeight="40" 
+                 ItemsSource="{Binding Path=FilterMethodInfos,UpdateSourceTrigger=PropertyChanged}"
+                 SelectedItem="{Binding SelectedMethodInfos,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Path=Name}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <ListBox MinHeight="40" 
+                 ItemsSource="{Binding Path=ParameterInfos,UpdateSourceTrigger=PropertyChanged}"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto">
+        </ListBox>
+    </DockPanel>
 </Window>

@@ -13,7 +13,8 @@
     </Window.DataContext>
     <DockPanel x:Name="dockPanel">
         <ui:GraphControl x:Name="_GraphVisualization" 
-                             Graph="{Binding Graph,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                             Graph="{Binding Graph,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                         >
             <interactivity:Interaction.Triggers>
                     <interactivity:EventTrigger EventName="MouseDoubleClick">
                         <interactivity:InvokeCommandAction 
@@ -27,9 +28,8 @@
                     <MenuItem Header="_Save" Command="Save" />
                     <MenuItem Header="_Load" Command="Open" />
                     <MenuItem Header="_Print" Command="Print" />
-                    <MenuItem Header="_Kruskal" Command="{x:Static ui:GraphControl.KruskalRoutedCommand}" />
+                    <MenuItem Header="_Print" Command="{x:Null}" />
                     <MenuItem Header="_Clear" Command="{x:Static ui:GraphControl.ClearGraphCommand}" />
-                    <MenuItem Header="_Direct" Command="{x:Static ui:GraphControl.SetDirectedRoutedCommand}" />
                 </ContextMenu>
             </ui:GraphControl.ContextMenu>
             <ui:GraphControl.Resources>
@@ -42,14 +42,24 @@
                                   CommandParameter="{Binding Path=SelectedItem.Vertex,Source={x:Reference _GraphVisualization},UpdateSourceTrigger=PropertyChanged}"/>
                 </ContextMenu>
                 <Style TargetType="{x:Type ui:VertexControl}">
-                    <Setter Property="Width" Value="50" />
+                    <Setter Property="Width" Value="200" />
                     <Setter Property="Height" Value="50" />
                     <!--<Setter Property="Background" Value="#fff299" />-->
                     <Setter Property="CommandOnDoubleClick" Value="{Binding Path=DataContext.ClickCommand,Source={x:Reference dockPanel},UpdateSourceTrigger=Default}" />
                     <Setter Property="ContextMenu" Value="{StaticResource ContextMenu}" />
+                    <Setter Property="ItemTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <StackPanel Orientation="Vertical" Background="Yellow" 
+                                                VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                                                ToolTip="{Binding Path=Value.Description,UpdateSourceTrigger=PropertyChanged}">
 
+                                    <TextBlock Text="{Binding Path=Value.MethodNameTyp,UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
                 </Style>
-
                 <Style TargetType="{x:Type ui:EdgeControl}">
                     <Style.Triggers>
                         <Trigger Property="IsFocused" Value="True">

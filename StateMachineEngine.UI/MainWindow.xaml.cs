@@ -41,6 +41,7 @@ namespace StateMachineEngine.UI
                     typeof(Vertex<StateModule>),
                     typeof(Vertex<IState>),
                     typeof(Edge<StateModule>),
+                    typeof(Edge<IState>),
                     typeof(StateModule),
                 };
                 a.DataContractResolver = new StateResolver();

@@ -39,7 +39,7 @@ namespace StateMachineEngine.UI
 
         protected IVertex<IState> VertexFactory()
         {
-            return new Vertex<IState>() {  };
+            return new Vertex<IState>() { };
         }
         private ICommand? _ClickCommand;
         public ICommand? ClickCommand => _ClickCommand ?? (_ClickCommand = new DelegateCommand<IVertex>(OnClickCommand));
@@ -65,20 +65,25 @@ namespace StateMachineEngine.UI
             {
                 param = Graph.Start;
                 if (param == null) return;
-                if (param is IVertex<IState>)
+                if (param is IVertex<IState> vertexstat)
                 {
-                    IVertex<StateModule> foo = null;
-                    IState stateModule = (param as IVertex<IState>)?.Value;
-                    foo = new Vertex<StateModule>(param.Weighted);
-                    //foo.Edges = param.Edges;
-                    foo.Value = stateModule as StateModule;
+                    //IVertex<StateModule> foo = null;
+                    //IState stateModule = (param as IVertex<IState>)?.Value;
+                    //foo = new Vertex<StateModule>(param.Weighted);
+
+                    //foo.Value = stateModule as StateModule;
+                    //foreach (var edge in param.Edges)
+                    //{
+                    //    foo.AddEdge(edge.V, edge.Weighted, false);
+                    //}
 
 
-                    await _stateMachine?.Run(foo);
+                    await _stateMachine?.Run(vertexstat);
                 }
                 else
                 {
-                    await _stateMachine?.Run(param as IVertex<StateModule>);
+                    throw new InvalidOperationException();
+                    //await _stateMachine?.Run(param as IVertex<StateModule>);
                 }
 
             }
@@ -97,7 +102,7 @@ namespace StateMachineEngine.UI
             set
             {
                 SetProperty(ref _Graph, value, nameof(Graph));
-                if(_Graph!=null)
+                if (_Graph != null)
                 {
                     _Graph.CreateVertexFunc = VertexFactory;
                 }

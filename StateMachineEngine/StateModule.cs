@@ -109,7 +109,7 @@ namespace StateMachineEngine
         public Assembly LoadAssembly()
         {
             string foundAssemblyPath = GetAssemblies().
-                        FirstOrDefault(a => AssemblyFullName.Contains(",") &&
+                        FirstOrDefault(a => !String.IsNullOrWhiteSpace(AssemblyFullName) && AssemblyFullName.Contains(",") &&
                         $"{AssemblyFullName.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries)?.FirstOrDefault()}.dll" == new FileInfo(a).Name);
 
             if (!String.IsNullOrEmpty(foundAssemblyPath))

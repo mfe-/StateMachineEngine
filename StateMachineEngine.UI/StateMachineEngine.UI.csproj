@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>9.0</LangVersion>
     <Nullable>enable</Nullable>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
@@ -12,11 +12,12 @@
     <AssemblyName>StateMachineEngine.UI</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Abstract.DataStructures.UI" Version="1.1.0" />
-    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.3" />
-    <PackageReference Include="Prism.Core" Version="7.2.0.1367" />
+    <PackageReference Include="Abstract.DataStructures.UI" Version="2021.3.28.2" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
+    <PackageReference Include="Prism.Core" Version="8.0.0.1909" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ClassLibrary2\ClassLibrary2.csproj" />
     <ProjectReference Include="..\StateMachineEngine\StateMachineEngine.csproj" />
   </ItemGroup>
 </Project>

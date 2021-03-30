@@ -35,7 +35,7 @@
             <ui:GraphControl.Resources>
                 <ContextMenu x:Key="ContextMenu">
                     <MenuItem Header="Edit" 
-                                  Command="{Binding Path=DataContext.ClickCommand,Source={x:Reference dockPanel},UpdateSourceTrigger=Default}"
+                                  Command="{Binding Path=DataContext.ClickVertexCommand,Source={x:Reference dockPanel},UpdateSourceTrigger=Default}"
                                   CommandParameter="{Binding Path=SelectedItem.Vertex,Source={x:Reference _GraphVisualization},UpdateSourceTrigger=PropertyChanged}"/>
                     <MenuItem Header="Run" 
                                   Command="{Binding Path=DataContext.RunStateMachineCommand,Source={x:Reference dockPanel},UpdateSourceTrigger=Default}"
@@ -45,7 +45,7 @@
                     <Setter Property="Width" Value="200" />
                     <Setter Property="Height" Value="100" />
                     <!--<Setter Property="Background" Value="#fff299" />-->
-                    <Setter Property="CommandOnDoubleClick" Value="{Binding Path=DataContext.ClickCommand,Source={x:Reference dockPanel},UpdateSourceTrigger=Default}" />
+                    <Setter Property="CommandOnDoubleClick" Value="{Binding Path=DataContext.ClickVertexCommand,Source={x:Reference dockPanel},UpdateSourceTrigger=Default}" />
                     <Setter Property="ContextMenu" Value="{StaticResource ContextMenu}" />
                     <Setter Property="ItemTemplate">
                         <Setter.Value>
@@ -74,6 +74,15 @@
                     <Style.Triggers>
                         <Trigger Property="IsFocused" Value="True">
                             <Setter Property="StrokeThickness" Value="2" />
+                            <Setter Property="ContextMenu">
+                                <Setter.Value>
+                                    <ContextMenu>
+                                        <MenuItem Header="Edit Edge" 
+                                                  Command="{Binding Path=DataContext.ClickEdgeCommand,Source={x:Reference dockPanel},UpdateSourceTrigger=Default}"
+                                                  CommandParameter="{Binding Path=SelectedEdge,Source={x:Reference _GraphVisualization},UpdateSourceTrigger=PropertyChanged}"/>  
+                                    </ContextMenu>
+                                </Setter.Value>
+                            </Setter>
                         </Trigger>
                     </Style.Triggers>
                 </Style>

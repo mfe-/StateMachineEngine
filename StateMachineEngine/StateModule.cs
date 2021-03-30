@@ -59,19 +59,23 @@ namespace StateMachineEngine
         /// </summary>
         public MethodInfo LoadMethodTyp()
         {
-            if (Assembly == null) LoadAssembly();
+            if (Assembly == null) Assembly = LoadAssembly();
             List<MethodInfo> mList = new List<MethodInfo>();
-            foreach (var t in Assembly.GetTypes().ToList())
+            if (Assembly.GetTypes() is Type[] types)
             {
-                if (t.IsPublic)
+                foreach (var t in types)
                 {
-                    var m = t.GetMethods();
-                    if (t != null && t.IsPublic && t.Name != nameof(MethodInfo.Equals) && t.Name != nameof(MethodInfo.ToString))
+                    if (t.IsPublic)
                     {
-                        mList.AddRange(m);
+                        var m = t.GetMethods();
+                        if (t.IsPublic && t.Name != nameof(MethodInfo.Equals) && t.Name != nameof(MethodInfo.ToString))
+                        {
+                            mList.AddRange(m);
+                        }
                     }
                 }
             }
+
             if (!String.IsNullOrEmpty(MethodNameTyp))
             {
                 _MethodTyp = mList.FirstOrDefault(a => a.ToString() == MethodNameTyp);

@@ -28,6 +28,7 @@ namespace StateMachineEngine
         public async Task<T> ToObjectAsync<T>(HttpResponseMessage response)
         {
             var jsonString = await response.Content.ReadAsStringAsync();
+            //exchange with Jil – A fast JSON serializer based on Sigil
             var model = JsonConvert.DeserializeObject<T>(jsonString);
             return model;
         }

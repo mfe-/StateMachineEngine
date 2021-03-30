@@ -20,7 +20,7 @@ namespace StateMachineEngine.UI
             _Graph.CreateVertexFunc = VertexFactory;
         }
 
-        private void Window1ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void Window1ViewModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (nameof(Graph).Equals(e.PropertyName) && Graph != null)
             {
@@ -41,10 +41,10 @@ namespace StateMachineEngine.UI
         {
             return new Vertex<IState>() { };
         }
-        private ICommand? _ClickCommand;
-        public ICommand? ClickCommand => _ClickCommand ?? (_ClickCommand = new DelegateCommand<IVertex>(OnClickCommand));
+        private ICommand? _ClickVertexCommand;
+        public ICommand? ClickVertexCommand => _ClickVertexCommand ?? (_ClickVertexCommand = new DelegateCommand<IVertex>(OnClickVertexCommand));
 
-        protected void OnClickCommand(IVertex param)
+        protected void OnClickVertexCommand(IVertex param)
         {
             if (param != null)
             {
@@ -52,6 +52,22 @@ namespace StateMachineEngine.UI
                 var moduleFunctionWindowViewModel = new StateModuleWindowViewModel();
                 moduleFunctionWindowViewModel.Vertex = param;
                 moduleFunctionWindow.DataContext = moduleFunctionWindowViewModel;
+                moduleFunctionWindow.ShowDialog();
+            }
+        }
+
+
+        private ICommand _ClickEdgeCommand;
+        public ICommand ClickEdgeCommand => _ClickEdgeCommand ?? (_ClickEdgeCommand = new DelegateCommand<object>(OnClickEdgeCommand));
+
+        protected void OnClickEdgeCommand(object param)
+        {
+            if (param != null)
+            {
+                TransationWindow moduleFunctionWindow = new TransationWindow();
+                var edgeWindowViewModel = new TransationWindowViewModel();
+                edgeWindowViewModel.Edge = param as IEdge;
+                moduleFunctionWindow.DataContext = edgeWindowViewModel;
                 moduleFunctionWindow.ShowDialog();
             }
         }
@@ -65,7 +81,7 @@ namespace StateMachineEngine.UI
             {
                 param = Graph.Start;
                 if (param == null) return;
-                if (param is IVertex<IState> vertexstat)
+                if (param is IVertex<IState> vertexstat && _stateMachine != null)
                 {
                     //IVertex<StateModule> foo = null;
                     //IState stateModule = (param as IVertex<IState>)?.Value;
@@ -78,7 +94,7 @@ namespace StateMachineEngine.UI
                     //}
 
 
-                    await _stateMachine?.Run(vertexstat);
+                    await _stateMachine.Run(vertexstat);
                 }
                 else
                 {

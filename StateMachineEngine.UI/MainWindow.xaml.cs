@@ -38,15 +38,15 @@ namespace StateMachineEngine.UI
                 a.KnownTypes = new List<Type>()
                 {
                     typeof(Graph),
-                    typeof(Vertex<StateModule>),
-                    typeof(Vertex<IState>),
-                    typeof(Edge<StateModule>),
-                    typeof(Edge<IState>),
+                    typeof(DataStructures.UI.Vertex<StateModule>),
+                    typeof(DataStructures.UI.Vertex<IState>),
+                    typeof(DataStructures.UI.Edge<StateModule>),
+                    typeof(DataStructures.UI.Edge<IState>),
                     typeof(StateModule),
                 };
                 a.DataContractResolver = new StateResolver();
             };
-
+            _GraphVisualization.EdgeFactory = (v) => new DataStructures.UI.Edge<IState>(v, null);
             _GraphVisualization.LoadGraphFunc = Load;
             _GraphVisualization.GraphSaveFunc = Save;
         }
@@ -95,7 +95,7 @@ namespace StateMachineEngine.UI
         }
         public static DataContractSerializerSettings GetDataContractSerializerSettings(List<Type> knownTypes, DataContractResolver dataContractResolver = null)
         {
-            List<Type> types = new List<Type>() { typeof(Vertex<object>), typeof(Edge<object>) };
+            List<Type> types = new List<Type>() { typeof(DataStructures.UI.Vertex<object>), typeof(DataStructures.UI.Edge<object>) };
             if (knownTypes != null)
             {
                 types.AddRange(knownTypes);

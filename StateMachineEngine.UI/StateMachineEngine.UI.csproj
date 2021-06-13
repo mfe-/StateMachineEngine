@@ -12,9 +12,9 @@
     <AssemblyName>StateMachineEngine.UI</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Abstract.DataStructures.UI" Version="2021.3.28.2" />
+    <PackageReference Include="Abstract.DataStructures.UI" Version="2021.6.13.5" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
-    <PackageReference Include="Prism.Core" Version="8.0.0.1909" />
+    <PackageReference Include="Prism.Core" Version="8.1.97" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ClassLibrary2\ClassLibrary2.csproj" />

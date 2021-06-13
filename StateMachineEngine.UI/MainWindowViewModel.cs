@@ -1,4 +1,5 @@
 ﻿using DataStructures;
+using DataStructures.UI;
 using Prism.Commands;
 using System;
 using System.Collections.Generic;
@@ -39,7 +40,11 @@ namespace StateMachineEngine.UI
 
         protected IVertex<IState> VertexFactory()
         {
-            return new Vertex<IState>() { };
+            return new DataStructures.UI.Vertex<IState>() { };
+        }
+        protected IEdge<IState> EdgeFactory()
+        {
+            return new DataStructures.UI.Edge<IState>(null, null) { };
         }
         private ICommand? _ClickVertexCommand;
         public ICommand? ClickVertexCommand => _ClickVertexCommand ?? (_ClickVertexCommand = new DelegateCommand<IVertex>(OnClickVertexCommand));

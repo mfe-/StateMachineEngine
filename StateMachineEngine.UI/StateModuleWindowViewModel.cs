@@ -1,4 +1,5 @@
 ﻿using DataStructures;
+using DataStructures.UI;
 using Microsoft.Win32;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -130,9 +131,9 @@ namespace StateMachineEngine.UI
         {
             get
             {
-                if ((Vertex as Vertex<IState>)?.Value as StateModule != null)
+                if ((Vertex as DataStructures.UI.Vertex<IState>)?.Value as StateModule != null)
                 {
-                    return (Vertex as Vertex<IState>)?.Value as StateModule;
+                    return (Vertex as DataStructures.UI.Vertex<IState>)?.Value as StateModule;
                 }
                 if ((Vertex as IVertex<StateModule>)?.Value as StateModule != null)
                 {
@@ -142,11 +143,11 @@ namespace StateMachineEngine.UI
             }
             set
             {
-                if ((Vertex as Vertex<IState>) != null)
-                    (Vertex as Vertex<IState>).Value = value;
-                if ((Vertex as Vertex<StateModule>) != null)
+                if ((Vertex as DataStructures.UI.Vertex<IState>) != null)
+                    (Vertex as DataStructures.UI.Vertex<IState>).Value = value;
+                if ((Vertex as DataStructures.UI.Vertex<StateModule>) != null)
                 {
-                    (Vertex as Vertex<StateModule>).Value = value;
+                    (Vertex as DataStructures.UI.Vertex<StateModule>).Value = value;
                 }
                 RaisePropertyChanged(nameof(ModuleFunction));
             }
